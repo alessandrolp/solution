@@ -51,23 +51,52 @@ public class Solution {
 			if (numberRead == 0 && hasZero) {
 				continue;
 			}
-			if (!numbers.contains(numberRead)) {
+			if (numberRead != numbersSorted[i - 1]) {
 				numbers.add(numberRead);
 			}
-			int count = i - 1;
+			int aux = i - 1;
 			int lastNumberCreated = numberRead;
-			while (count >= 0) {
-				Integer numberSortedCurrent = numbersSorted[count];
+			while (aux >= 0) {
+				Integer numberSortedCurrent = numbersSorted[aux];
 				if (numberSortedCurrent > 0) {
 					lastNumberCreated = Integer.valueOf(numberSortedCurrent + "" + lastNumberCreated);
 					numbers.add(lastNumberCreated);
 				}
-				count--;
+				aux--;
 			}
 		}
 		printNumbers(numbers.stream().mapToInt(i -> i).toArray(), "Números possíveis");
 		return numbers.size();
 	}
+	
+	/**
+	 * Implementação otimizada pois não ha necessidade de salvar em uma coleção,
+	 * sendo apenas obtido a quantidade total de números possíveis. 
+	 */
+//	private static int countNumbers(int[] numbersSorted) {
+//		int firstNumber = numbersSorted[0];
+//		boolean hasZero = firstNumber == 0;
+//		int countNumber = 1;
+//
+//		for (int i = 1; i < numbersSorted.length; i++) {
+//			int numberRead = numbersSorted[i];
+//			if (numberRead == 0 && hasZero) {
+//				continue;
+//			}
+//			if (numberRead != numbersSorted[i - 1]) {
+//				countNumber++;
+//			}
+//			int aux = i - 1;
+//			while (aux >= 0) {
+//				Integer numberSortedCurrent = numbersSorted[aux];
+//				if (numberSortedCurrent > 0) {
+//					countNumber++;
+//				}
+//				aux--;
+//			}
+//		}
+//		return countNumber;
+//	}
 
 	private static void printNumbers(int[] numbersSorted, String message) {
 		StringBuilder sb = new StringBuilder();
